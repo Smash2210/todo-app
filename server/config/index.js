@@ -10,7 +10,8 @@ module.exports = {
         secret: 'th0oJJgPYFWQ3o4wF2FyjIA8dAiHBKkN', // To be stored as env variable
         unprotectedRoutes: [
             '/',
-            '/login'
+            '/login',
+            '/create-user'
         ]
     }
 }
