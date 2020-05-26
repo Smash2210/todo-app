@@ -13,8 +13,10 @@ const mysqlConnector = () => {
 
         connection.connect(function (err) {
             if (err) {
+                console.log('Error connecting to mysql server');
                 reject(err.stack);
             }
+            console.log('Connected to mysql server');
             resolve(connection);
         });
     })

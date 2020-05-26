@@ -10,12 +10,14 @@ const { port } = config;
 const { mysqlConnector } = require('./connectors/mysql-connector');
 const { mysqlWrapper } = require('./helpers/query-wrapper');
 const bodyParser = require('body-parser');
+const { validateUser } = require('./helpers/validate-user');
+require('dotenv').config();
 
 mysqlConnector()
     .then((_db) => {
         const db = mysqlWrapper(_db);
         app.use(bodyParser.json());
-        app.use('/', jwt.verify(), routes(db));
+        app.use('/', jwt.verify(), validateUser(db), routes(db));
 
         app.use(errorHandler);
 

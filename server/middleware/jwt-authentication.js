@@ -15,6 +15,9 @@ const verify = () => {
 
 const sign = (payload) => {
     const ttl = 1000 * 60 * 60 * 24;
+    if (payload && payload.password) {
+        delete payload.password;
+    }
     return jsonwebtoken.sign(payload, secret, { expiresIn: ttl.toString() });
 }
 

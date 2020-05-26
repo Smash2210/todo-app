@@ -3,7 +3,7 @@ const { getTodoList } = require('./logic/getTodoLists');
 
 const listItems = (db) => {
     return (req, res, next) => {
-        const email = req.query.email;
+        const email = req.email;
         if (!email) {
             res.status(400).send({ success: false, message: 'Please login and try again!' });
             return;
