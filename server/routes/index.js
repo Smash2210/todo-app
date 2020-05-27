@@ -8,5 +8,6 @@ module.exports = (db) => {
   routes.use('/login', require('./login')(db));
   routes.use('/create-user', require('./create-users')(db));
   routes.use('/tasks/', require('./tasks')(db));
+  routes.use('/update-password', require('./change-password')(db));
   return routes;
 }

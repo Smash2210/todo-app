@@ -12,7 +12,11 @@ const login = (db) => {
         }
         return authenticateUser(db, email, md5(password))
             .then((response) => {
-                res.status(200).send({ success: true, data: response });
+                if (response.isLoggedIn) {
+                    res.status(200).send({ success: true, data: response });
+                } else {
+                    res.status(200).send({ success: false, message: response.message });
+                }
             }).catch(err => {
                 console.log(err);
                 res.status(500).send({ success: false, err });

@@ -1,8 +1,13 @@
 'use strict';
 const jsonwebtoken = require('jsonwebtoken');
+const { features: { unprotectedRoutes } } = require('../config/index');
 
 const validateUser = (db) => {
     return (req, res, next) => {
+        if(unprotectedRoutes.includes(req.originalUrl)){
+            next();
+            return;
+        }
         const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
         const { email } = jsonwebtoken.decode(token);
         if (!email) {

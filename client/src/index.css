@@ -18,7 +18,7 @@ code {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #B4B8AB;
+  background: #333;
   color: #fff;
   padding: 0 1.7em;
 }
@@ -46,4 +46,14 @@ code {
 }
 .logout-wrapper:hover{
   color: #284B63;
+}
+
+.container{
+  display: flex;
+  height: calc(100vh - 50px);
+}
+
+.login-body{
+  align-items: center;
+  justify-content: center;
 }

@@ -1,75 +1,57 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Paper from "@material-ui/core/Paper";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+const { login } = require('../../services/services');
 
 class Login extends React.Component {
 
-    // classes = this.useStyles();
-    dense = false;
-    setDense = false;
     constructor(props) {
         super(props);
+        this.state = {
+            email: '',
+            password: ''
+        }
     }
 
-    useStyles = makeStyles((theme) => ({
-        root: {
-            flexGrow: 1,
-            maxWidth: 752,
-        },
-        demo: {
-            backgroundColor: theme.palette.background.paper,
-        },
-        title: {
-            margin: theme.spacing(4, 0, 2),
-        },
-    }));
-
-    generate = (element) => {
-        return [0, 1, 2].map((value) =>
-            React.cloneElement(element, {
-                key: value,
-            }),
-        );
+    handleChange = (e, param) => {
+        this.setState({ [param]: e.target.value });
     }
+
+    loginUser = () => {
+        const req = {
+            email: this.state.email,
+            password: this.state.password
+        };
+        return login(req)
+            .then((result) => {
+                if (result && result.data.success) {
+                    localStorage.setItem('isLoggedIn', true);
+                    localStorage.setItem('token', result.data.data.token);
+                    this.props.history.push('/dashboard');
+                } else {
+                    alert(result.data.message || 'Some error occured');
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+    };
 
     render() {
         return (
-            < Grid item xs={12} md={6} >
-                <Typography variant="h6">
-                    Avatar with text and icon
-              </Typography>
-                <div>
-                    <List>
-                        {this.generate(
-                            <ListItem>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <FolderIcon />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    primary="Single-line item"
-                                />
-                                <ListItemSecondaryAction>
-                                    <IconButton edge="end" aria-label="delete">
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </ListItemSecondaryAction>
-                            </ListItem>,
-                        )}
-                    </List>
-                </div>
-            </Grid >
+            <div className={"container login-body"}>
+                <Paper elevation={2} style={{ padding: "1em", display: "flex", flexDirection: "column", width: "30%" }}>
+                    <TextField id="outlined-basic" value={this.state.email} onChange={($event) => this.handleChange($event, 'email')} label="Email" variant="outlined" style={{ margin: "0 0 0.5em" }} />
+                    <TextField type="password" id="outlined-basic" value={this.state.password} onChange={($event) => this.handleChange($event, 'password')} label="Password" variant="outlined" style={{ margin: "0.5em 0 0" }} />
+                    <Button variant="contained" onClick={this.loginUser} color="primary" style={{ margin: "1em 0 0" }}>
+                        Login
+                    </Button>
+                    <span style={{ textAlign: "center", fontSize: "12px" }}>
+                        <p>Need an account? Sign up!</p>
+                    </span>
+                </Paper>
+            </div>
         )
     }
 }
