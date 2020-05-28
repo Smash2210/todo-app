@@ -4,19 +4,23 @@ import Logout from "../Logout/Logout";
 class Header extends React.Component {
     constructor(props) {
         super(props);
+        const isLoggedIn = localStorage.getItem('isLoggedIn') || false;
+        this.state = {
+            isLoggedIn
+        }
     }
     render() {
-        const isLoggedIn = localStorage.getItem('isLoggedIn') || false;
+
         return (
             <div className={"header-wrapper"}>
                 <p>Todo Application</p>
-                {isLoggedIn ?
+                {this.state.isLoggedIn ?
                     <div className={"menu-options"}>
                         <div className={"menu-items"}>
                             <span>Todo List</span>
                             <span>Profile</span>
                         </div>
-                        <Logout></Logout>
+                        <Logout {...this.props}></Logout>
                     </div> : null}
             </div>
         )

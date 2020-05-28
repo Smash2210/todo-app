@@ -2,7 +2,8 @@
 
 const deleteTask = (db) => {
     return (req, res, next) => {
-        const { email, taskId } = req.body;
+        const { taskId } = req.body;
+        const email = req.email;
         return db
             .query(`UPDATE \`todo_items\` SET \`isDeleted\`='1' WHERE \`id\`='${taskId}' AND \`email\`='${email}';`)
             .then(() => {

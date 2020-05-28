@@ -41,7 +41,7 @@ class Login extends React.Component {
     render() {
         return (
             <div className={"container login-body"}>
-                <Paper elevation={2} style={{ padding: "1em", display: "flex", flexDirection: "column", width: "30%" }}>
+                <Paper elevation={2} style={{ padding: "1em", display: "flex", flexDirection: "column", width: "40%" }}>
                     <TextField id="outlined-basic" value={this.state.email} onChange={($event) => this.handleChange($event, 'email')} label="Email" variant="outlined" style={{ margin: "0 0 0.5em" }} />
                     <TextField type="password" id="outlined-basic" value={this.state.password} onChange={($event) => this.handleChange($event, 'password')} label="Password" variant="outlined" style={{ margin: "0.5em 0 0" }} />
                     <Button variant="contained" onClick={this.loginUser} color="primary" style={{ margin: "1em 0 0" }}>

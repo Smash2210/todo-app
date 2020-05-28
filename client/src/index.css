@@ -51,9 +51,22 @@ code {
 .container{
   display: flex;
   height: calc(100vh - 50px);
+  padding: 2em 5em;
+  box-sizing: border-box;
 }
 
 .login-body{
   align-items: center;
   justify-content: center;
+}
+
+.padding-top-2em{
+  padding-top: 2em;
+}
+.padding-top-bottom-2em{
+  padding: 2em 0;
+}
+
+.action-elements{
+  display: flex;
 }
