@@ -31,4 +31,14 @@ const editTaskTitle = (req) => {
     return axios.put('/tasks/update-title', req, { headers: { 'Authorization': `Bearer ${token}` } });
 }
 
-module.exports = { login, listItems, addNewTask, deleteTask, updateTaskStatus, editTaskTitle };
+const updateUserPassword = (req) => {
+    const token = localStorage.getItem('token');
+    return axios.put('/update-password', req, { headers: { 'Authorization': `Bearer ${token}` } });
+}
+
+const createAccount = (req) => {
+    const token = localStorage.getItem('token');
+    return axios.post('/create-user', req, { headers: { 'Authorization': `Bearer ${token}` } });
+}
+
+module.exports = { login, listItems, addNewTask, deleteTask, updateTaskStatus, editTaskTitle, updateUserPassword, createAccount };

@@ -8,18 +8,39 @@ import Login from "./components/Login/Login";
 import Header from "./components/Header/Header";
 
 
+class App extends React.Component {
 
-function App() {
-  return (
-    <Router>
-      <Header></Header>
-      <Switch>
-        <Route exact path="/login" render={(props) => <Login {...props}></Login>} />
-        <Route exact path="/dashboard" render={() => <Dashboard></Dashboard>} />
-        <Route path="/*" component={() => <Redirect to={'/login'} />} />
-      </Switch>
-    </Router>
-  );
+  constructor(props) {
+    super(props);
+    const isLoggedIn = localStorage.getItem('isLoggedIn') || false;
+    this.state = {
+      isLoggedIn
+    }
+  }
+
+  loggedIn = () => {
+    console.log('login func');
+    this.setState({ isLoggedIn: true });
+    console.log(this.state);
+  }
+
+  loggedOut = () => {
+    console.log('logout func');
+    this.setState({ isLoggedIn: false });
+  }
+
+  render() {
+    return (
+      <Router>
+        <Header isLoggedIn={this.state.isLoggedIn} logout={() => this.loggedOut()}></Header>
+        <Switch>
+          <Route exact path="/login" render={(props) => <Login {...props} isLoggedIn={this.state.isLoggedIn} loggedIn={() => this.loggedIn()}></Login>} />
+          <Route exact path="/dashboard" render={(props) => <Dashboard {...props} isLoggedIn={this.state.isLoggedIn}></Dashboard>} />
+          <Route path="/*" component={() => <Redirect to={'/login'} />} />
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;

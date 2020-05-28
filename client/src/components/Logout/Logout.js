@@ -1,5 +1,6 @@
 import React from 'react';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { withRouter } from "react-router-dom";
 
 class Logout extends React.Component {
 
@@ -8,7 +9,7 @@ class Logout extends React.Component {
   }
 
   logout = () => {
-    localStorage.clear();
+    this.props.clearStorage();
     this.props.history.push('/login');
   }
   render() {
@@ -19,4 +20,4 @@ class Logout extends React.Component {
     )
   }
 }
-export default Logout
+export default withRouter(Logout)

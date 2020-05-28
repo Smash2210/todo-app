@@ -27,6 +27,9 @@ class Dashboard extends React.Component {
             updateTitleText: '',
             currentTaskId: ''
         }
+        if (!props.isLoggedIn) {
+            this.props.history.push('/login');
+        }
     }
 
     componentDidMount() {
@@ -124,7 +127,7 @@ class Dashboard extends React.Component {
         return <div className={"container"}>
             <Paper style={{ padding: "1em", display: "flex", flexDirection: "column", width: "100%", overflow: "auto" }}>
                 <div className={"action-elements"}>
-                    <TextField id="outlined-basic" value={this.state.taskTitle} onChange={($event) => this.handleChange($event, 'taskTitle')} label="Title" variant="outlined" style={{ width: "20%" }} />
+                    <TextField autoComplete='off' id="outlined-basic" value={this.state.taskTitle} onChange={($event) => this.handleChange($event, 'taskTitle')} label="Title" variant="outlined" style={{ width: "20%" }} />
                     <Button variant="outlined" onClick={() => { this.addTask() }} color="primary" style={{ margin: "0 1em 0", width: "10%" }}>
                         Add
                     </Button>
